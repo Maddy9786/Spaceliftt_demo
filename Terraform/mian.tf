@@ -1,6 +1,11 @@
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "us-east-1"
+}
+
+variable "public_key" {
+  description = "Path to the public key file"
+  type        = string
 }
 
 data "aws_ami" "ubuntu" {
@@ -8,7 +13,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
 
   filter {
@@ -20,26 +25,19 @@ data "aws_ami" "ubuntu" {
     name   = "architecture"
     values = ["x86_64"]
   }
-  owners = ["680994883549"] #canonical
+
+  owners = ["099720109477"] # Official Canonical Ubuntu
 }
 
 locals {
   instances = {
     instance1 = {
       ami           = data.aws_ami.ubuntu.id
-      instance_type = "t2.micro"
+      instance_type = "t3.micro"
     }
     instance2 = {
       ami           = data.aws_ami.ubuntu.id
-      instance_type = "t2.micro"
-    }
-    instance3 = {
-      ami           = data.aws_ami.ubuntu.id
-      instance_type = "t2.micro"
-    }
-    instance4 = {
-      ami           = data.aws_ami.ubuntu.id
-      instance_type = "t2.micro"
+      instance_type = "t3.micro"
     }
   }
 }
@@ -60,3 +58,4 @@ resource "aws_instance" "this" {
     Name = each.key
   }
 }
+
