@@ -1,6 +1,6 @@
 
 variable "public_key" {
   type    = string
-  default = "/mnt/workspace/id_ed25519.pub"
+  default = "/mnt/workspace/info_instance.pem"
 }
 
