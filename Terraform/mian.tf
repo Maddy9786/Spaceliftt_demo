@@ -1,5 +1,6 @@
+
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-1"
 }
 
 data "aws_ami" "ubuntu" {
@@ -19,20 +20,27 @@ data "aws_ami" "ubuntu" {
     name   = "architecture"
     values = ["x86_64"]
   }
-  owners = ["680994883549"] #canonical
+  owners = ["099720109477"] #canonical
 }
 
 locals {
   instances = {
     instance1 = {
       ami           = data.aws_ami.ubuntu.id
-      instance_type = "t3.micro"
+      instance_type = "t2.micro"
     }
     instance2 = {
       ami           = data.aws_ami.ubuntu.id
-      instance_type = "t3.micro"
+      instance_type = "t2.micro"
     }
-
+    instance3 = {
+      ami           = data.aws_ami.ubuntu.id
+      instance_type = "t2.micro"
+    }
+    instance4 = {
+      ami           = data.aws_ami.ubuntu.id
+      instance_type = "t2.micro"
+    }
   }
 }
 
@@ -52,4 +60,3 @@ resource "aws_instance" "this" {
     Name = each.key
   }
 }
-
