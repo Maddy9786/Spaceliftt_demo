@@ -2,12 +2,6 @@
 provider "aws" {
   region = "us-east-1"
 }
-
-variable "public_key" {
-  description = "Path to the public key file"
-  type        = string
-}
-
 data "aws_ami" "ubuntu" {
   most_recent = true
 
